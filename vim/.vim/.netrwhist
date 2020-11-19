@@ -1,3 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/usr/local/share/vim/vim82'
+let g:netrw_dirhist_3='/home/reuben'
+let g:netrw_dirhist_2='/home/reuben/.vim'
 let g:netrw_dirhist_1='/usr/local/share/vim/vim82/colors'

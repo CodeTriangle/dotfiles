@@ -6,6 +6,8 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
+PATH=$PATH:/usr/local/jdk-11/bin
+
 alias ls=exa
 alias  ..='cd ..'
 alias ...='cd ../..'
@@ -24,5 +26,5 @@ function identity {
   	fi
 }
 
-PS1="%{%B%{%F{yellow}[%n@%m]%f%} %{%F{cyan}[%D{%Y-%m-%d %T}]%f%} %{%F{magenta}%d%f%}
-%{%F{gray}%#%f%}%b%} "
+PROMPT="%{%B%{%F{yellow}[%n@%m]%f%} %{%F{cyan}[%D{%Y-%m-%d %T}]%f%} %{%F{magenta}%~%f%}
+%{%F{black}%#%f%}%b%} "
