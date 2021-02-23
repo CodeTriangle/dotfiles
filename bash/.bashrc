@@ -29,4 +29,13 @@ function identity {
         echo "bad identity"
     fi
 }
+
+function switchmap {
+    if [[ $(setxkbmap -query | grep 'colemak' -c) == 1 ]]; then
+        setxkbmap us
+    else
+        setxkbmap us -variant colemak
+    fi
+}
+
 source "$HOME/.cargo/env"
