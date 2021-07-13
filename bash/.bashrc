@@ -16,7 +16,12 @@ alias 4..="cd ../../../.."
 
 alias tuv="sudo xbps-install"
 
-export PS1="\[\e[1;33m\][\u@\h] \[\e[1;36m\][\D{%d %b %Y} \t] \[\e[1;35m\]\w \[\e[1;32m\]\$(git branch 2>/dev/null | grep '^\*' | colrm 1 2)\n\[\e[0m\]\$ "
+__git_ps1() {
+    printf "$(git branch 2>/dev/null | grep '^\*' | colrm 1 2)"
+}
+
+export PROMPT_COMMAND='sc=$?';
+export PS1="\[\e[1;33m\][\u@\h] \[\e[1;36m\][\D{%d %b %Y} \t] \[\e[1;35m\]\w \[\e[1;32m\]\$(__git_ps1)\n\[\e[1;31m\]\$([ \$sc -eq 0 ] || printf \"{\$sc} \")\[\e[0m\]\$ "
 
 export PATH="$HOME/.emacs.d/bin:$HOME/programs/bash:$PATH"
 
