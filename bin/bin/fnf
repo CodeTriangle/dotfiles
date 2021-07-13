@@ -1,0 +1,10 @@
+#!/bin/bash
+
+xmodmap -e 'keycode 43 = a'
+xmodmap -e 'keycode 44 = s'
+xmodmap -e 'keycode 45 = w'
+xmodmap -e 'keycode 46 = d'
+
+# /home/reuben/Downloads/funkin/Funkin
+
+# switchmap; switchmap

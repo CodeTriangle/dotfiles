@@ -3,6 +3,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+set -o vi
+
 # alias ls='exa'
 alias la='ls -a'
 alias ll='ls -al'
@@ -30,12 +32,10 @@ function identity {
     fi
 }
 
-function switchmap {
-    if [[ $(setxkbmap -query | grep 'colemak' -c) == 1 ]]; then
-        setxkbmap us
-    else
-        setxkbmap us -variant colemak
-    fi
-}
-
 source "$HOME/.cargo/env"
+
+PATH="/home/reuben/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/reuben/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/reuben/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/reuben/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/reuben/perl5"; export PERL_MM_OPT;

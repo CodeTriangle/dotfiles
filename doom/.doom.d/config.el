@@ -52,3 +52,25 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(set-email-account! "gmail"
+                    '((user-full-name . "Trigon")
+                      (user-mail-address . "reuben.staley@gmail.com")
+                      (smtpmail-smpt-user . "reuben.staley@gmail.com")
+                      (mu4e-sent-folder . "/gmail/Sent Mail")
+                      (mu4e-compose-signature . "--\nTrigon"))
+                    t)
+
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (setq web-mode-style-padding web-mode-css-indent-offset
+                  web-mode-script-padding web-mode-code-indent-offset
+                  web-mode-block-padding web-mode-code-indent-offset
+                  web-mode-attr-indent-offset 4)))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-offset 'arglist-intro '+)
+            (c-set-offset 'arglist-close '0)))

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+dmenu -P -p "$1" -fn 'tewi:size=9' -nb '#222222' -nf 'MediumPurple1'

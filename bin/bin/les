@@ -1,0 +1,15 @@
+#!/bin/sh
+
+MYARG="$1"
+if [ -z "$MYARG" ]; then 
+    MYARG="."
+fi
+
+if [ -f "$MYARG" ]; then
+    exec less "$MYARG"
+elif [ -d "$MYARG" ]; then
+    exec ls --color=auto "$MYARG"
+else
+    echo "les: cannot do anything with $MYARG"
+    exit 1
+fi

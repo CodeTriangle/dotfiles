@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pulseaudio -k
+wine /home/reuben/.wine/drive_c/Program\ Files\ \(x86\)/PopCap\ Games/Plants\ vs.\ Zombies/PlantsVsZombies.exe
