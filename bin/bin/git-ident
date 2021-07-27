@@ -1,0 +1,13 @@
+#!/bin/bash
+
+case "$1" in
+    (aggie)
+        git config user.name "Richard Snider";
+        git config user.email "richard.snider@aggiemail.usu.edu";;
+    (lhm)
+        git config user.name "Reuben Staley";
+        git config user.email "lighthousemaniac@gmail.com";;
+    (*)
+        echo "bad identity";
+        exit 1;;
+esac

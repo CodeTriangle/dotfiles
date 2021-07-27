@@ -55,4 +55,9 @@ set shiftwidth=4 softtabstop=4
 
 " colorscheme mine
 
+set backspace=3
+
+set backupdir=~/.cache/vim/backup,/tmp
+set directory=~/.cache/vim/swap,/tmp
+
 syntax on
