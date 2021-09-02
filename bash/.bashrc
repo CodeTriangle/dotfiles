@@ -16,6 +16,8 @@ alias 4..="cd ../../../.."
 
 alias tuv="sudo xbps-install"
 
+alias when='TZ=America/Denver when'
+
 __git_ps1() {
     printf "$(git branch 2>/dev/null | grep '^\*' | colrm 1 2)"
 }
@@ -23,7 +25,7 @@ __git_ps1() {
 export PROMPT_COMMAND='sc=$?';
 export PS1="\[\e[1;31m\]\$([ \$sc -eq 0 ] || printf \"{\$sc} \")\[\e[1;33m\][\u@\h] \[\e[1;36m\][\D{%d %b %Y} \t] \[\e[1;35m\]\w \[\e[1;32m\]\$(__git_ps1)\n\[\e[0m\]\$ "
 
-export PATH="$HOME/.emacs.d/bin:$HOME/programs/bash:$PATH"
+export PATH="/usr/local/MATLAB/R2021a/bin:$HOME/.emacs.d/bin:$HOME/programs/bash:$PATH"
 
 [ -a "$HOME/bin/fzf.sh" ] && . "$HOME/bin/fzf.sh"
 
