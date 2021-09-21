@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# a small script to automate the process of scanning a document and
+# converting it into a PDF, which has caused drama before.
+
+# first arg is the filename to save to.
+# second arg is additional arguments to pass to `scanimage`
+# third arg is additional arguments to pass to `convert`
+
+OUTNAME="$1"
+SCARGS="$2"
+CVARGS="$3"
+
+(
+    mkdir -p /tmp/scanpdf
+    cd /tmp/scanpdf
+    rm out*.png >/dev/null
+
+    scanimage -d pixma --format="png" -p -b --batch-prompt $SCARGS
+
+    convert $CVARGS out*.png out.pdf
+)
+
+cp "/tmp/scanpdf/out.pdf" $OUTNAME
+
