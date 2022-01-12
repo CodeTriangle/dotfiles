@@ -1,0 +1,21 @@
+#!/bin/bash
+
+status=$(cat /sys/class/power_supply/BAT0/status)
+
+if [ $status != 'Discharging' ]; then
+    [ -a notified ] && rm notified
+    exit
+fi
+
+percent=$(dc <<EOF
+$(cat /sys/class/power_supply/BAT0/charge_now)
+100*
+$(cat /sys/class/power_supply/BAT0/charge_full)/
+f
+EOF
+)
+
+if [ $percent -le $1 ] && ! [ -a notified ]; then
+    dunstify 'Low Battery' "Battery at $percent%"
+    touch notified
+fi

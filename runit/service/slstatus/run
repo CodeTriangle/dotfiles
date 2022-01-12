@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#export TZ=America/Denver
+exec 2>&1
+exec slstatus
