@@ -6,12 +6,12 @@ export FZF_DEFAULT_OPS=''
 
 [ -v TMUX ] && export FZF='fzf-tmux' # change to fzf-tmux if we are in tmux
 
-function viz {
+viz() {
     local file = $(FZF) || return
     vim $($FZF)
 }
 
-function gchb {
+gchb() {
     local branches
     branches=$(git branch) || return
 
@@ -21,7 +21,7 @@ function gchb {
     git checkout $branch
 }
 
-function gchc {
+gchc() {
     local commits
     commits=$(git log --oneline --decorate) || return
 

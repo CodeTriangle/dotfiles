@@ -12,14 +12,16 @@ SCARGS="$2"
 CVARGS="$3"
 
 mkdir -p /tmp/scanpdf
-pushd /tmp/scanpdf
+
+here="$CWD"
+cd /tmp/scanpdf
 rm out*.png >/dev/null
 
-scanimage -d pixma --format="png" -p -b --batch-prompt $SCARGS
+scanimage -d pixma --format="png" -p -b --resolution 150dpi --batch-prompt $SCARGS
 
 convert $CVARGS out*.png out.pdf
 
-popd
+cd "$CWD"
 
-cp /tmp/scanpdf/out.pdf "$OUTNAME"
+[ -n "$OUTNAME" ] && cp /tmp/scanpdf/out.pdf "$OUTNAME"
 

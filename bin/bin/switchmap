@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ $(setxkbmap -query | grep 'colemak' -c) == 1 ]]; then
+if [ $(setxkbmap -query | grep 'colemak' -c) -ge 1 ]; then
     echo 'qwerty'
     setxkbmap us
 else

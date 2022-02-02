@@ -3,9 +3,9 @@
 case "$1" in
     (aggie)
         git config user.name "Richard Snider";
-        git config user.email "richard.snider@aggiemail.usu.edu";;
+        git config user.email "A02298443";;
     (lhm)
-        git config user.name "Reuben Staley";
+        git config user.name "Richard Snider";
         git config user.email "lighthousemaniac@gmail.com";;
     (*)
         echo "bad identity";
