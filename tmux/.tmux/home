@@ -1,0 +1,4 @@
+/home/reuben
+H
+set -t home status-style  bg=color167,fg=black
+set -t home message-style bg=color169,fg=black

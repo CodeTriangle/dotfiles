@@ -1,0 +1,4 @@
+/home/reuben/Documents
+D
+set -t docs status-style  bg=color227,fg=black
+set -t docs message-style bg=color215,fg=black

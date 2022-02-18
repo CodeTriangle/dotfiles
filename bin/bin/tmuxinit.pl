@@ -19,18 +19,29 @@ while (my $name = readdir $dh) {
     my $fname = "$confdir/$name";
     -f $fname or next;
 
-    my ($wname, $dir) = split /\./, $name, 2;
+    my @components = split '/', $fname;
+    my $wname = pop @components;
 
     has $wname and next;
-    defined $dir or die "incorrect naming convention";
 
-    $dir =~ s/\./\//g;
-    $dir = '/' . $dir;
-
-    print "$wname ($dir)";
-
+    open my $fh, "<", $fname;
+    my $dir = <$fh>;
+    $dir =~ s/\s//g;
     system "tmux new -d -c $dir -s $wname";
-    system "tmux source-file $fname";
+
+    my $key = <$fh>;
+    $key =~ s/\s//g;
+    system "tmux bind-key $key switch-client -t $wname";
+
+    while (my $line = <$fh>) {
+        chomp $line;
+        $line eq "" and next;
+        system "tmux $line";
+    }
+
+    print "$wname ($dir)\n";
+
+    close $fh;
 }
 
 closedir $dh;

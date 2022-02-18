@@ -1,0 +1,4 @@
+/home/reuben/git
+G
+set -t git status-style  bg=color47,fg=black
+set -t git message-style bg=color48,fg=black

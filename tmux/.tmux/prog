@@ -1,0 +1,5 @@
+/home/reuben
+P
+set -t prog status-style  bg=color166,fg=black
+set -t prog message-style bg=color208,fg=black
+neww -t prog: weechat
