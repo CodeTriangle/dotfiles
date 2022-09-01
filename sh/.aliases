@@ -1,0 +1,12 @@
+alias la='ls -a'
+alias ll='ls -al'
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias 3..="cd ../../.."
+alias 4..="cd ../../../.."
+
+alias gstat='git status'
+alias gcom='git commit'
+
+alias hx='COLORTERM=24bit helix'

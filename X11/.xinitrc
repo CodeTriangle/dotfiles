@@ -1,4 +1,4 @@
-setxkbmap us -variant colemak &
+setxkbmap -variant altgr-intl -option -option lv3:switch -option ctrl:nocaps &
 
 xset fp+ /usr/share/fonts/tewi-font &
 xset fp+ /usr/share/fonts/spleen &

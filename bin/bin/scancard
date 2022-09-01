@@ -1,0 +1,8 @@
+#!/bin/sh
+
+scanimage \
+        -d pixma \
+        --format="png" \
+        --resolution="150dpi" \
+        -x "5in" -y "2.95in" \
+        -p -o $@

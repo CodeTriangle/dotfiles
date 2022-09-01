@@ -1,0 +1,10 @@
+#/bin/sh
+
+SCROTOP="$1"
+EXOP="$2"
+
+EX=''
+
+[
+
+scrot $SCROTOP -e 'xclip -selection clipboard -t image/png -i $f ; mv $f screenshots ; ln -sf screenshots/$f ss.png'

@@ -5,16 +5,7 @@
 
 set -o vi
 
-# alias ls='exa'
-alias la='ls -a'
-alias ll='ls -al'
-
-alias ..="cd .."
-alias ...="cd ../.."
-alias 3..="cd ../../.."
-alias 4..="cd ../../../.."
-
-alias tuv="sudo xbps-install"
+[ -a "$HOME/.aliases" ] && . "$HOME/.aliases"
 
 alias when='TZ=America/Denver when'
 
