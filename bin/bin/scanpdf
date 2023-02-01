@@ -7,21 +7,23 @@
 # second arg is additional arguments to pass to `scanimage`
 # third arg is additional arguments to pass to `convert`
 
+set -e
+
 OUTNAME="$1"
 SCARGS="$2"
 CVARGS="$3"
 
 mkdir -p /tmp/scanpdf
 
-here="$CWD"
+here="$PWD"
 cd /tmp/scanpdf
-rm out*.png >/dev/null
+rm -f out*.png >/dev/null
 
 scanimage -d pixma --format="png" -p -b --resolution 150dpi --batch-prompt $SCARGS
 
 convert $CVARGS out*.png out.pdf
 
-cd "$CWD"
+cd "$here"
 
 [ -n "$OUTNAME" ] && cp /tmp/scanpdf/out.pdf "$OUTNAME"
 
