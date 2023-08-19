@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+#replacement for part of gnu stow which i cannot be bothered to figure out how to acquire on artix
+
+DIR=$1
+
+if [ -d $DIR ]; then
+	for subdir in $(find $DIR); do 
+		if [ \( -e "$subdir" \) -a ! \( "$subdir" -ef "$DIR" \) ]; then
+			echo "linking $PWD/$subdir"
+			# ln -s $PWD/$subdir ..
+		fi
+	done
+else
+	echo 'no such file' >&2
+	exit 1
+fi
