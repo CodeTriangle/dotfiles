@@ -17,7 +17,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 runsvdir /home/reuben/service /home/reuben/svdlog &
 
-monitors.sh &
+./.fehbg &
 
 # while true; do
 #     TORUN=$(dmenu_path | dmenu)
