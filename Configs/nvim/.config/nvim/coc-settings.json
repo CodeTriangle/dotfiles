@@ -1,0 +1,5 @@
+{
+	"suggest.noselect": true,
+	"perl.p::ls.enable": true,
+	"perl.navigator.enable": false
+}

@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+
+import subprocess
+import sys
+import os
+import signal
+
+if (len(sys.argv) != 2):
+    print("No file specified", file=sys.stderr)
+
+subprocess.run(["pdflatex", sys.argv[1]])
+process = subprocess.Popen(["mupdf", os.path.splitext(sys.argv[1])[0] + ".pdf"])
+
+while True:
+    wait = subprocess.run(["inotifywait", sys.argv[1]])
+    print(wait.returncode)
+    if wait.returncode == 0:
+        pdf = subprocess.run(["pdflatex", sys.argv[1]])
+        if pdf.returncode == 0:
+            process.send_signal(signal.SIGHUP)

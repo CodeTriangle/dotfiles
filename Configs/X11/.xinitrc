@@ -1,5 +1,3 @@
-setxkbmap -variant altgr-intl -option -option lv3:switch -option ctrl:nocaps &
-
 xset fp+ /usr/share/fonts/tewi-font &
 xset fp+ /usr/share/fonts/spleen &
 
@@ -15,7 +13,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # 
 # dunst >~/dunst.log &
 
-runsvdir /home/reuben/service /home/reuben/svdlog &
+monr.sh &
 
 ./.fehbg &
 
@@ -26,7 +24,7 @@ runsvdir /home/reuben/service /home/reuben/svdlog &
 # done
 
 [ -n "$DWM_DEBUG" ] && exec gdbserver localhost:5555 /home/reuben/git/dwm/dwm
-exec dbus-launch --exit-with-session /home/reuben/git/dwm/dwm
+exec dbus-launch --exit-with-session runsvdir /home/richard/service
 # exec dbus-launch --exit-with-session openbox-session
 # exec dbus-launch --exit-with-session /usr/local/bin/spectrwm
 # exec dbus-launch --exit-with-session /home/reuben/git/spectrwm/linux/spectrwm
