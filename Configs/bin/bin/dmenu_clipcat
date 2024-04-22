@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SELECTION="$(clipcatctl list | dmenu $@ -p 'clipcat:' -l 25 | cut -c '-16')"
+
+clipcatctl promote "$SELECTION"

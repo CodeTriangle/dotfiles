@@ -1,0 +1,5 @@
+#!/bin/bash
+
+2>&1
+
+exec clipcatd --no-daemon
