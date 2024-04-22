@@ -8,13 +8,13 @@ import signal
 if (len(sys.argv) != 2):
     print("No file specified", file=sys.stderr)
 
-subprocess.run(["pdflatex", sys.argv[1]])
+subprocess.run(["pdflatex", sys.argv[1]], stdin=subprocess.DEVNULL)
 process = subprocess.Popen(["mupdf", os.path.splitext(sys.argv[1])[0] + ".pdf"])
 
 while True:
     wait = subprocess.run(["inotifywait", sys.argv[1]])
     print(wait.returncode)
     if wait.returncode == 0:
-        pdf = subprocess.run(["pdflatex", sys.argv[1]])
+        pdf = subprocess.run(["pdflatex", sys.argv[1]], stdin=subprocess.DEVNULL)
         if pdf.returncode == 0:
             process.send_signal(signal.SIGHUP)

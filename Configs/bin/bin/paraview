@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd ~/Downloads/ParaView-5.11.2-MPI-Linux-Python3.9-x86_64/
+
+exec bin/paraview
