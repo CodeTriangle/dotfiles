@@ -1,4 +1,4 @@
 /vim/.vim/.netrwhist
 
-runit/**/log/main
-runit/**/supervise
+Configs/runit/**/log/main
+Configs/runit/**/supervise
