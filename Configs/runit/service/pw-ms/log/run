@@ -1,2 +1,2 @@
 #!/bin/sh
-svlogd -tt main
+exec svlogd -tt main
