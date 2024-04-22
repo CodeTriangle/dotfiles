@@ -13,6 +13,8 @@ call plug#end()
 " END VIM PLUG STUFF
 " END VIM PLUG STUFF
 
+set ts=4 sw=4
+
 augroup vimrc
         autocmd BufNewFile,BufRead *.js set sw=2
         autocmd BufNewFile,BufRead *.java set sw=4
