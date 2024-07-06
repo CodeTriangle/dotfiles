@@ -3,7 +3,9 @@ colorscheme gruvbox-dark
 eval %sh{kak-lsp --kakoune -s $kak_session}  # Not needed if you load it with plug.kak.
 lsp-enable
 
-add-highlighter global/ number-lines -relative
+add-highlighter global/ number-lines
+add-highlighter global/ show-whitespaces -lf '~' -tab '|' -tabpad '-'
+add-highlighter global/ show-matching
 
 lsp-auto-hover-enable
 
@@ -35,3 +37,8 @@ The kakoune command is executed in a new client' \
 }
 complete-command tmux-kak-vertical command
 alias global sp tmux-kak-vertical
+
+set global tabstop 3
+
+hook global WinCreate '.*' %{ noexpandtab }
+hook global WinSetOption filetype=python %{ expandtab; set window softtabstop 4 }
