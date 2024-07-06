@@ -15,3 +15,23 @@ map global object e '<a-semicolon>lsp-object Function Method<ret>' -docstring 'L
 map global object k '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
 map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
 map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
+
+define-command tmux-kak-horizontal -params 1.. -docstring '
+tmux-kak-horizontal <command> [<arguments>]: create a new kakoune client as a tmux pane
+The current pane is split into two, left and right
+The kakoune command is executed in a new client' \
+%{
+    tmux-terminal-horizontal kak -c %val{session} -e "%arg{@}"
+}
+complete-command tmux-kak-horizontal command
+alias global vs tmux-kak-horizontal
+
+define-command tmux-kak-vertical -params 1.. -docstring '
+tmux-kak-vertical <command> [<arguments>]: create a new kakoune client as a tmux pane
+The current pane is split into two, left and right
+The kakoune command is executed in a new client' \
+%{
+    tmux-terminal-vertical kak -c %val{session} -e "%arg{@}"
+}
+complete-command tmux-kak-vertical command
+alias global sp tmux-kak-vertical
