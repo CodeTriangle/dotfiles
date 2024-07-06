@@ -1,0 +1,17 @@
+#!/bin/bash
+
+MODE=$1
+
+case $MODE in
+	'enc')
+		printf "[-!_0_!-]"
+		openssl enc -e -base64 -A -aes-256-cbc -md md5 -pass pass:":_.NaN0" </dev/stdin
+		;;
+	'dec')
+		colrm 1 9 </dev/stdin | openssl enc -d -base64 -A -aes-256-cbc -md md5 -pass pass:":_.NaN0"
+		;;
+	*)
+		echo 'mode does not exist'
+		exit 1
+		;;
+esac
