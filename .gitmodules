@@ -4,3 +4,6 @@
 [submodule "Configs/kak/.config/kak/autoload/snippets"]
 	path = Configs/kak/.config/kak/autoload/snippets
 	url = https://github.com/occivink/kakoune-snippets
+[submodule "Configs/kak/.config/kak/autoload/surrounds"]
+	path = Configs/kak/.config/kak/autoload/surrounds
+	url = https://github.com/joaopspsps/surrounds.kak.git

@@ -1,3 +1,6 @@
+require-module surrounds
+map global user s ': enter-user-mode surrounds<ret>' -docstring "Surround mode"
+
 colorscheme gruvbox-dark
 
 eval %sh{kak-lsp --kakoune -s $kak_session}  # Not needed if you load it with plug.kak.
