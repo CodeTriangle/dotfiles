@@ -42,3 +42,10 @@ set global tabstop 3
 
 hook global WinCreate '.*' %{ noexpandtab }
 hook global WinSetOption filetype=python %{ expandtab; set window softtabstop 4 }
+
+eval %sh{
+	hn=$(hostname)
+	if [ -n "$hn" -a -f "systems/$hn/kakrc" ]; then
+		echo "source 'systems/$hn/kakrc'"
+	fi
+}
