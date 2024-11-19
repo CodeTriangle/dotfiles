@@ -1,5 +1,6 @@
 require-module surrounds
 map global user s ': enter-user-mode surrounds<ret>' -docstring "Surround mode"
+map global user S ': enter-user-mode surrounds-undo<ret>' -docstring "Surround mode (delete)"
 
 colorscheme gruvbox-dark
 
