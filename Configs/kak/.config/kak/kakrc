@@ -8,7 +8,7 @@ eval %sh{kak-lsp --kakoune -s $kak_session}  # Not needed if you load it with pl
 lsp-enable
 
 add-highlighter global/ number-lines
-add-highlighter global/ show-whitespaces -lf '~' -tab '|' -tabpad '-'
+add-highlighter global/ show-whitespaces -lf '~' -tab '|' -tabpad '-' -indent '|'
 add-highlighter global/ show-matching
 
 lsp-auto-hover-enable
