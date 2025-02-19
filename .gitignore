@@ -2,3 +2,6 @@
 
 Configs/runit/**/log/main
 Configs/runit/**/supervise
+
+Configs/runit-niri/**/log/main
+Configs/runit-niri/**/supervise
