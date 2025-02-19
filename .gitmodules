@@ -7,3 +7,6 @@
 [submodule "Configs/kak/.config/kak/autoload/surrounds"]
 	path = Configs/kak/.config/kak/autoload/surrounds
 	url = https://github.com/joaopspsps/surrounds.kak.git
+[submodule "Configs/kak/.config/kak/autoload/fzf"]
+	path = Configs/kak/.config/kak/autoload/fzf
+	url = https://github.com/andreyorst/fzf.kak

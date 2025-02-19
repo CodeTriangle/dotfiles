@@ -1,9 +1,17 @@
+### SURROUNDS ###
 require-module surrounds
 map global user s ': enter-user-mode surrounds<ret>' -docstring "Surround mode"
 map global user S ': enter-user-mode surrounds-undo<ret>' -docstring "Surround mode (delete)"
 
+### FZF ###
+require-module fzf
+require-module fzf-file
+map global user f ': fzf-mode<ret>' -docstring 'FZF mode'
+
+### COLORS ###
 colorscheme gruvbox-dark
 
+### LSP ###
 eval %sh{kak-lsp --kakoune -s $kak_session}  # Not needed if you load it with plug.kak.
 lsp-enable
 
@@ -22,6 +30,7 @@ map global object k '<a-semicolon>lsp-object Class Interface Struct<ret>' -docst
 map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
 map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
 
+### CUSTOM TMUX ###
 define-command tmux-kak-horizontal -params 1.. -docstring '
 tmux-kak-horizontal <command> [<arguments>]: create a new kakoune client as a tmux pane
 The current pane is split into two, left and right
@@ -42,14 +51,15 @@ The kakoune command is executed in a new client' \
 complete-command tmux-kak-vertical command
 alias global sp tmux-kak-vertical
 
+### MISC ###
 set global tabstop 3
 
 hook global WinCreate '.*' %{ noexpandtab }
 hook global WinSetOption filetype=python %{ expandtab; set window softtabstop 4 }
 
+### SYSTEM-SPECIFIC CONFIGS ###
 eval %sh{
-	hn=$(hostname)
-	if [ -n "$hn" -a -f "systems/$hn/kakrc" ]; then
-		echo "source 'systems/$hn/kakrc'"
+	if [ -n "$HOSTNAME" -a -f "$kak_config/systems/$HOSTNAME/kakrc" ]; then
+		echo "source '$kak_config/systems/$HOSTNAME/kakrc'"
 	fi
 }
