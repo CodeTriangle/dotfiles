@@ -5,14 +5,16 @@
 
 [ -a "$HOME/.aliases" ] && . "$HOME/.aliases"
 
-__git_ps1() {
-    printf "$(git branch 2>/dev/null | grep '^\*' | colrm 1 2)"
-}
+# __git_ps1() {
+#     printf "$(git branch 2>/dev/null | grep '^\*' | colrm 1 2)"
+# }
+
+source ~/bin/git-prompt.sh
 
 export PROMPT_COMMAND='sc=$?';
-export PS1="\[\e[1;31m\]\$([ \$sc -eq 0 ] || printf \"{\$sc} \")\[\e[1;33m\][\u@\h] \[\e[1;36m\][\D{%d %b %Y} \t] \[\e[1;35m\]\w \[\e[1;32m\]\$(__git_ps1)\n\[\e[0m\]\$ "
+export PS1="\[\e[1;31m\]\$([ \$sc -eq 0 ] || printf \"{\$sc} \")\[\e[1;33m\][\u@\h] \[\e[1;36m\][\D{%d %b %Y} \t] \[\e[1;35m\]\w\[\e[1;32m\]\$(__git_ps1)\n\[\e[0m\]\$ "
 
-export EDITOR=nvim
+export EDITOR=kak
 
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH:$HOME/.cargo/bin"
 
@@ -30,4 +32,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/richard/perl5"; export PERL_MM_OPT;
 
 HISTSIZE=500000
 
-export CCM="$HOME/CCModded/assets/mods/CCMultiworldRandomizer"
+export CCM="$HOME/programs/CCModded/assets/mods/CCMultiworldRandomizer"
