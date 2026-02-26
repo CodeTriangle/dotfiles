@@ -17,6 +17,11 @@ typescript = "typescriptreact"
 protobuf = "proto"
 sh = "shellscript"
 
+[language_server.arduino-language-server]
+filetypes = ["arduino"]
+roots = [".git", ".hg"]
+command = "arduino-language-server"
+
 [language_server.bash-language-server]
 filetypes = ["sh"]
 roots = [".git", ".hg"]
@@ -46,6 +51,7 @@ command = "cmake-language-server"
 filetypes = ["crystal"]
 roots = ["shard.yml"]
 command = "crystalline"
+args = ["--stdio"]
 
 [language_server.css-language-server]
 filetypes = ["css"]
@@ -165,6 +171,12 @@ filetypes = ["erlang"]
 # how to configure. This default config should work in most cases though.
 roots = ["rebar.config", "erlang.mk", ".git", ".hg"]
 command = "erlang_ls"
+
+[language_server.gdscript]
+filetypes = ["gd", "gdscript"]
+roots = [".import"]
+command = "nc"
+args = ["localhost", "6005"]
 
 [language_server.gopls]
 filetypes = ["go"]
