@@ -1,0 +1,7 @@
+#!/bin/sh
+
+exec 2>&1
+
+exec swayidle -w \
+	timeout 360 'swaylock -f' \
+	timeout 420 'niri msg action power-off-monitors'
