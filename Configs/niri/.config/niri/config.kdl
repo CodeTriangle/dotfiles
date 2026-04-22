@@ -1,9 +1,15 @@
 spawn-at-startup "runsvdir" "/home/richard/service-niri"
 
 environment {
-	DISPLAY ":12"
+	// DISPLAY ":12"
 	GTK_THEME "Adwaita:dark"
 	ELECTRON_OZONE_PLATFORM_HINT "auto"
+	MPD_PORT "6633"
+	XDG_DATA_DIRS "/home/richard/.local/share/flatpak/exports/share:/usr/share:/usr/local/share"
+}
+
+switch-events {
+	lid-close { spawn "swaylock"; }
 }
 
 // Input device configuration.
@@ -105,6 +111,38 @@ output "eDP-1" {
 	position x=0 y=0
 }
 
+output "Sony SONY TV  *00 0x01010101" {
+	mode "3840x2160@60.000"
+	scale 2
+}
+
+output "PNP(RKU) 100012585 Unknown" {
+	mode "3840x2160@60.000"
+	scale 2
+}
+
+output "Dell Inc. DELL P2715Q V7WP9613A5VL" {
+	mode "1920x1080@60.000"
+	scale 1
+}
+
+/-output "HDMI-A-1" {
+	scale 2
+}
+
+/-output "" {
+	mode "3840x2160@59.940"
+	scale 2
+}
+
+workspace "br" {
+	open-on-output "eDP-1"
+}
+
+workspace "ch" {
+	open-on-output "eDP-1"
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -152,8 +190,11 @@ layout {
 	// Alternatively, you can override it with a window rule called
 	// `draw-border-with-background`.
 
-	// You can change how the focus ring looks.
 	focus-ring {
+		off
+	}
+
+	border {
 		// Uncomment this line to disable the focus ring.
 		// off
 
@@ -188,7 +229,7 @@ layout {
 	}
 
 	// You can also add a border. It's similar to the focus ring, but always visible.
-	border {
+	/-border {
 		// The settings are the same as for the focus ring.
 		// If you enable the border, you probably want to disable the focus ring.
 		off
@@ -207,18 +248,31 @@ layout {
 	// Top and bottom struts will simply add outer gaps in addition to the area occupied by
 	// layer-shell panels and regular gaps.
 	struts {
-		// left 64
-		// right 64
+		left 16
+		right 16
 		// top 24
 		// bottom 64
 	}
+
+	tab-indicator {
+		gap 0
+	}
+
+	background-color "transparent"
 }
 
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// See the binds section below for more spawn examples.
-// spawn-at-startup "alacritty" "-e" "fish"
+recent-windows {
+	highlight {
+		active-color "#7c6f64ee"
+		urgent-color "#cc241dee"
+		padding 15
+		corner-radius 5
+	}
+
+	previews {
+		max-height 360
+	}
+}
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -232,9 +286,6 @@ prefer-no-csd
 // The path is formatted with strftime(3) to give you the screenshot date and time.
 screenshot-path "~/screenshots/%Y-%m-%d-%H%M%S.png"
 
-// You can also set this to null to disable saving screenshots to disk.
-// screenshot-path null
-
 // Animation settings.
 // The wiki explains how to configure individual animations:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
@@ -245,14 +296,49 @@ animations {
 	// Slow down all animations by this factor. Values below 1 speed them up instead.
 	// slowdown 3.0
 
+	workspace-switch {
+	}
+
 	window-open {
-		// duration-ms 250
+		/-duration-ms 350
 		curve "linear"
+
+		/-custom-shader r"
+			#define square_time 0.9
+
+			float opacity(vec2 fragCoord, float progress) {
+				return (fragCoord.x + fragCoord.y) / 2.0 < progress ? 1.0 : 0.0;
+			}
+
+			vec4 open_color(vec3 coords_geo, vec3 size_geo )
+			{
+				if (
+					coords_geo.x < 0.0 || coords_geo.x > 1.0
+					|| coords_geo.y < 0.0 || coords_geo.y > 1.0
+				) {
+					return vec4(0.0);
+				}
+
+				vec2 size = vec2(9.0, 9.0);
+				vec2 square_size = 1.0 / size;
+				vec2 square_start = mod(coords_geo.xy, square_size);
+				vec2 square_coord = fract(coords_geo.xy / square_size);
+				
+				float d = (1.0 - square_time) / ((size.x - 1.0) + (size.y - 1.0)) * (square_start.x + square_start.y);
+				
+				float square_progress = clamp((niri_progress - d) / square_time, 0.0, 1.0);
+
+				vec4 texel = texture2D(niri_tex, coords_geo.xy);
+				texel.w = opacity(square_coord, square_progress);
+				return texel;
+			}
+		"
 
 		custom-shader r"
 			#define PI 3.1415926535897932384626433832795
 
 			vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+				vec3 coords_tex = niri_geo_to_tex * coords_geo;
 				if (
 					coords_geo.x < 0.0 || coords_geo.x > 1.0
 					|| coords_geo.y < 0.0 || coords_geo.y > 1.0
@@ -273,10 +359,45 @@ animations {
 				angleProp = fract(angleProp);
 
 				// Output to screen
-				vec4 texel = texture2D(niri_tex, coords_geo.xy);
-				texel.w *= niri_progress < angleProp ? 0.0 : 1.0;
+				vec4 texel = texture2D(niri_tex, coords_tex.xy);
+				texel *= niri_progress < angleProp ? niri_progress : 1.0;
 				return texel;
-				// return (niri_progress < angleProp ? 0.0 : 1.0) * vec4(1, 1, 1, 1.0);
+			}
+		"
+	}
+
+	window-close {
+		// duration-ms 250
+		curve "linear"
+
+		custom-shader r"
+			#define PI 3.1415926535897932384626433832795
+
+			vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+				vec3 coords_tex = niri_geo_to_tex * coords_geo;
+				if (
+					coords_tex.x < 0.0 || coords_tex.x > 1.0
+					|| coords_tex.y < 0.0 || coords_tex.y > 1.0
+				) {
+					return vec4(0.0);
+				}
+
+				vec2 fragCoord = coords_geo.xy * size_geo.xy;
+
+				vec2 center = size_geo.xy / 2.0;
+				vec2 fromCenter = center - fragCoord;
+				float dist = distance(center, fragCoord);
+				float angle = atan(fromCenter.y, fromCenter.x);
+
+				float angleProp = (angle) / 2.0 / PI;
+				angleProp *= 8.0;
+				angleProp += niri_progress * (dist - 120.0) / 440.0;
+				angleProp = fract(angleProp);
+
+				// Output to screen
+				vec4 texel = texture2D(niri_tex, coords_tex.xy);
+				texel *= niri_progress < angleProp ? 1.0 : (1.0 - niri_progress);
+				return texel;
 			}
 		"
 	}
@@ -301,7 +422,23 @@ window-rule {
 	// This app-id regular expression will work for both:
 	// - host Firefox (app-id is "firefox")
 	// - Flatpak Firefox (app-id is "org.mozilla.firefox")
-	match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+	match app-id=r#"librewolf$"# title="^Picture-in-Picture$"
+	open-floating true
+}
+
+window-rule {
+	match title="^notification" app-id="^steam$"
+
+	open-floating true
+	open-focused false
+	open-on-output "eDP-1"
+	default-floating-position x=10 y=30 relative-to="bottom-right"
+}
+
+window-rule {
+	match app-id="Parameter Quest"
+	match app-id="LD59"
+
 	open-floating true
 }
 
@@ -319,9 +456,18 @@ window-rule {
 
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-	geometry-corner-radius 12
+window-rule {
 	clip-to-geometry true
+}
+
+layer-rule {
+	match namespace="^wallpaper$"
+	place-within-backdrop true
+}
+
+cursor {
+	xcursor-theme "Vimix-cursors"
+	xcursor-size 30
 }
 
 binds {
@@ -341,8 +487,10 @@ binds {
 
 	// Suggested binds for running programs: terminal, app launcher, screen locker.
 	Mod+T { spawn "alacritty"; }
-	Mod+D { spawn "fuzzel"; }
+	Mod+D { spawn "anyrun"; }
 	Super+Alt+L { spawn "swaylock"; }
+
+	Mod+O { toggle-overview; }
 
 	// You can also use a shell. Do this if you need pipes, multiple commands, etc.
 	// Note: the entire command goes as a single argument in the end.
@@ -355,7 +503,7 @@ binds {
 	XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
 	XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-	Mod+Q { close-window; }
+	Mod+Shift+C { close-window; }
 
 	Mod+Left  { focus-column-left; }
 	Mod+Down  { focus-window-down; }
@@ -517,6 +665,7 @@ binds {
 	Mod+Ctrl+R { reset-window-height; }
 	Mod+F { maximize-column; }
 	Mod+Shift+F { fullscreen-window; }
+	Mod+G { maximize-window-to-edges; }
 	Mod+C { center-column; }
 
 	// Finer width adjustments.
@@ -538,6 +687,10 @@ binds {
 	Mod+V       { toggle-window-floating; }
 	Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
+	Mod+M { spawn "librewolf"; }
+
+	Mod+P { spawn "mpc" "toggle"; }
+
 	// Actions to switch layouts.
 	// Note: if you uncomment these, make sure you do NOT have
 	// a matching layout switch hotkey configured in xkb options above.
@@ -557,4 +710,6 @@ binds {
 	// Powers off the monitors. To turn them back on, do any input like
 	// moving the mouse or pressing any other key.
 	Mod+Shift+P { power-off-monitors; }
+
+	Mod+W { toggle-column-tabbed-display; }
 }
