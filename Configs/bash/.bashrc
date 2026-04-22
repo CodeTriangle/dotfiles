@@ -16,7 +16,7 @@ export PS1="\[\e[1;31m\]\$([ \$sc -eq 0 ] || printf \"{\$sc} \")\[\e[1;33m\][\u@
 
 export EDITOR=kak
 
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH:$HOME/.cargo/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH:$HOME/.ghcup/bin"
 
 [ -a "$HOME/bin/fzf.sh" ] && . "$HOME/bin/fzf.sh"
 
