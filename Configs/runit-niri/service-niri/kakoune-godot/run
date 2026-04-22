@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec kak -d -s godot
