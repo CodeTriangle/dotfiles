@@ -123,7 +123,7 @@ button:hover {
 }
 
 #clock {
-	background-color: @bg4;
+	background-color: @bg3;
 	color: @fg1;
 }
 
@@ -178,6 +178,18 @@ button:hover {
 
 #network.disconnected {
 	background-color: @red-dim;
+}
+
+#mpd.playing {
+	background-color: @bg1;
+	color: @purple;
+	font-weight: bold;
+}
+
+#mpd.paused {
+	background-color: @bg1;
+	color: @yellow;
+	font-weight: bold;
 }
 
 #wireplumber {

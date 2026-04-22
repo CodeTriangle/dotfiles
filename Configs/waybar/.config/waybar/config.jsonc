@@ -1,5 +1,6 @@
 [
 	{
+		"name": "top",
 		"layer": "top", // Waybar at top layer
 		"position": "top", // Waybar position (top|bottom|left|right)
 		"height": 20, // Waybar height (to be removed for auto height)
@@ -18,7 +19,8 @@
 		"niri/window": {
 			"rewrite": {
 				".*- (\\S+@\\[\\d+\\]) - Kakoune": "kak - $1"
-			}
+			},
+			"separate-outputs": true,
 		},
 		"clock": {
 			"interval": 60,
@@ -39,6 +41,7 @@
 		},
 	},
 	{
+		"name": "bottom",
 		"layer": "top", // Waybar at top layer
 		"position": "bottom", // Waybar position (top|bottom|left|right)
 		"height": 20, // Waybar height (to be removed for auto height)
@@ -48,6 +51,9 @@
 			"network#wlan0",
 			"network#eth0",
 		],
+		"modules-center": [
+			"mpd",
+		],
 		"modules-right": [
 			"cpu",
 			"temperature",
@@ -56,12 +62,45 @@
 
 		"network#wlan0": {
 			"interface": "wlan0",
-			"format": "wlan0:{ipaddr}/{cidr} {essid} {signalStrength}%"
+			"format": "wlan0:{ipaddr}/{cidr} {essid} {signaldBm}dBm",
+			"format-disconnected": "wlan0:-",
+			"family": "ipv4"
 		},
 		"network#eth0": {
 			"interface": "eth0",
 			"format": "eth0:{ipaddr}/{cidr}",
-			"format-disconnected": "eth0:-"
+			"format-disconnected": "eth0:-",
+			"family": "ipv4"
+		},
+
+		"mpd": {
+			"port": 6633,
+			"unknown-tag": "×",
+			"format": "{stateIcon} {artist} ~ {album} ~ {title} [{elapsedTime}/{totalTime}] ({songPosition}/{queueLength}) {{{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}}}",
+			"format-stopped": "",
+			"format-disconnected": "",
+			"state-icons": {
+				"paused": "||",
+				"playing": "|>",
+			},
+			"consume-icons": {
+				"on": "C",
+				"off": "",
+			},
+			"repeat-icons": {
+				"on": "°",
+				"off": "",
+			},
+			"random-icons": {
+				"on": "%",
+				"off": "",
+			},
+			"single-icons": {
+				"on": "¹",
+				"off": "",
+			},
+			"on-click": "mpc -p 6633 toggle",
+			"on-click-right": "alacritty -e ncmpcpp"
 		},
 
 		"cpu": {
@@ -69,7 +108,8 @@
 			"format": "cpu:{usage:02}%"
 		},
 		"wireplumber": {
-			"format": "vol:{volume:02}%"
+			"format": "vol:{volume:02}%",
+			"on-click": "pavucontrol"
 		}
 	}
 ]
