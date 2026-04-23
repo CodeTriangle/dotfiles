@@ -1,0 +1,111 @@
+:root {
+	--gruvbox-dark-0-hard: #1d2021;
+	--gruvbox-dark-0: #282828;
+	--gruvbox-dark-0-soft: #32302f;
+	--gruvbox-dark-1: #3c3836;
+	--gruvbox-dark-2: #504945;
+	--gruvbox-dark-3: #665c54;
+	--gruvbox-dark-4: #7c6f64;
+	--gruvbox-light-0-hard: #f9f5d7;
+	--gruvbox-light-0: #fbf1c7;
+	--gruvbox-light-0-soft: #f2e5bc;
+	--gruvbox-light-1: #ebdbb2;
+	--gruvbox-light-2: #d5c4a1;
+	--gruvbox-light-3: #bdae93;
+	--gruvbox-light-4: #a89984;
+	--gruvbox-neutral-red: #cc241d;
+	--gruvbox-neutral-green: #98971a;
+	--gruvbox-neutral-yellow: #d79921;
+	--gruvbox-neutral-blue: #458588;
+	--gruvbox-neutral-purple: #b16286;
+	--gruvbox-neutral-aqua: #689d6a;
+	--gruvbox-neutral-orange: #d65d0e;
+	--gruvbox-faded-red: #9d0006;
+	--gruvbox-faded-green: #79740e;
+	--gruvbox-faded-yellow: #b57614;
+	--gruvbox-faded-blue: #076678;
+	--gruvbox-faded-purple: #8f3f71;
+	--gruvbox-faded-aqua: #427b58;
+	--gruvbox-faded-orange: #af3a03;
+	--accent: var(--gruvbox-faded-red);
+	--accent-focus: var(--gruvbox-neutral-red);
+	--bg-color: var(--gruvbox-light-1);
+	--fg-color: var(--gruvbox-dark-2);
+	--desc-color: var(--gruvbox-neutral-red);
+}
+
+window {
+	background: transparent;
+}
+
+box.main {
+	padding: 5px;
+	margin: 10px;
+	border-radius: 10px;
+	border: 2px solid var(--accent);
+	background-color: var(--bg-color);
+	box-shadow: 0 0 5px black;
+}
+
+
+text {
+	min-height: 30px;
+	padding: 5px;
+	border-radius: 5px;
+	color: var(--fg-color);
+}
+
+.matches {
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 10px;
+}
+
+box.plugin:first-child {
+	margin-top: 5px;
+}
+
+box.plugin.info {
+	min-width: 200px;
+	color: var(--fg-color);
+}
+
+list.plugin {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+label.match {
+	color: var(--fg-color);
+}
+
+label.match.description {
+	font-size: 10px;
+	color: var(--desc-color);
+}
+
+label.plugin.info {
+	font-size: 14px;
+}
+
+.match {
+	background: transparent;
+}
+
+box.match {
+	border-radius: 5px;
+	padding: 2px 5px;
+}
+
+.match:selected box {
+	background-color: var(--gruvbox-light-2);
+	/* animation: fade 0.1s linear; */
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
