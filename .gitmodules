@@ -6,7 +6,7 @@
 	url = https://github.com/occivink/kakoune-snippets
 [submodule "Configs/kak/.config/kak/autoload/surrounds"]
 	path = Configs/kak/.config/kak/autoload/surrounds
-	url = git@github.com:CodeTriangle/surrounds.kak.git
+	url = https://github.com/CodeTriangle/surrounds.kak
 [submodule "Configs/kak/.config/kak/autoload/fzf"]
 	path = Configs/kak/.config/kak/autoload/fzf
 	url = https://github.com/andreyorst/fzf.kak
